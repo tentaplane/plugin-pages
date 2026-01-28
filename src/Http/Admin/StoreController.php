@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace TentaPress\Pages\Http\Admin;
 
-use TentaPress\Pages\Support\BlocksNormalizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use TentaPress\Pages\Models\TpPage;
 use TentaPress\Pages\Services\PageSlugger;
+use TentaPress\Pages\Support\BlocksNormalizer;
 
 final readonly class StoreController
 {
@@ -24,7 +24,6 @@ final readonly class StoreController
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('tp_pages', 'slug')],
             'layout' => ['nullable', 'string', 'max:255'],
-            'excerpt' => ['nullable', 'string'],
             'blocks_json' => ['nullable', 'string'],
         ]);
 
@@ -43,7 +42,6 @@ final readonly class StoreController
             'slug' => $slug,
             'status' => 'draft',
             'layout' => $data['layout'] ?? null,
-            'excerpt' => $data['excerpt'] ?? null,
             'blocks' => $blocks,
             'created_by' => $nowUserId ?: null,
             'updated_by' => $nowUserId ?: null,

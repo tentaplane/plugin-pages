@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace TentaPress\Pages\Http\Admin;
 
-use TentaPress\Pages\Support\BlocksNormalizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use TentaPress\Pages\Models\TpPage;
 use TentaPress\Pages\Services\PageSlugger;
+use TentaPress\Pages\Support\BlocksNormalizer;
 
 final readonly class UpdateController
 {
@@ -24,7 +24,6 @@ final readonly class UpdateController
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('tp_pages', 'slug')->ignore($page->id)],
             'layout' => ['nullable', 'string', 'max:255'],
-            'excerpt' => ['nullable', 'string'],
             'blocks_json' => ['nullable', 'string'],
         ]);
 
@@ -39,7 +38,6 @@ final readonly class UpdateController
             'title' => (string) $data['title'],
             'slug' => $slug,
             'layout' => $data['layout'] ?? null,
-            'excerpt' => $data['excerpt'] ?? null,
             'blocks' => $blocks,
             'updated_by' => $nowUserId ?: null,
         ]);

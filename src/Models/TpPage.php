@@ -17,7 +17,6 @@ final class TpPage extends Model
         'status',
         'layout',
         'blocks',
-        'excerpt',
         'published_at',
         'created_by',
         'updated_by',
